@@ -57,10 +57,10 @@ import type {
   RawConnectAcpRuntimeResult,
 } from "@/shared/api/tauriAgentAuth";
 import type {
-  RawAcpRuntimeCatalogEntry,
   RawInstallRuntimeResult,
   RuntimeFileConfigSubset,
 } from "@/shared/api/tauri";
+import type { RawAcpRuntimeCatalogEntry } from "@/shared/api/acpRuntimeCatalog";
 import { normalizePubkey } from "@/shared/lib/pubkey";
 import {
   isValidLinkPreviewSnapshotCanonicalUrl,
@@ -7493,6 +7493,17 @@ function withMockRuntimeConfigMetadata(
         ? runtime.accepted_effort_values
         : runtime.id === "goose"
           ? ["off", "low", "medium", "high", "max"]
+          : null,
+    effort_aliases:
+      "effort_aliases" in runtime
+        ? runtime.effort_aliases
+        : runtime.id === "goose"
+          ? [
+              ["none", "off"],
+              ["disabled", "off"],
+              ["med", "medium"],
+              ["xhigh", "max"],
+            ]
           : null,
   };
 }
